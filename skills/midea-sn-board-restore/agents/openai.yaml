@@ -1,0 +1,4 @@
+interface:
+  display_name: "美的空调主板机身码恢复"
+  short_description: "为已授权的单台空调生成一次性、可审计的主板 SN 恢复包"
+  default_prompt: "Use $midea-sn-board-restore to review my ownership and replacement-board evidence, then generate and validate a one-device write-once Midea air-conditioner SN recovery package. Do not proceed from an SN alone."
