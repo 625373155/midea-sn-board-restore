@@ -1,0 +1,35 @@
+{
+  "name": "midea-sn-board-restore",
+  "version": "0.2.0",
+  "description": "Generate audited, offline, one-device Midea replacement-board SN restore packages with a single-write safety lock.",
+  "author": {
+    "name": "Ailixiya",
+    "url": "https://github.com/625373155"
+  },
+  "homepage": "https://github.com/625373155/midea-sn-board-restore#readme",
+  "repository": "https://github.com/625373155/midea-sn-board-restore",
+  "keywords": [
+    "midea",
+    "air-conditioner",
+    "replacement-board",
+    "sn-restore",
+    "offline"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "美的空调 SN 主板恢复",
+    "shortDescription": "生成经审计、单设备且只写一次的离线 SN 恢复包",
+    "longDescription": "根据可信来源的 22 位原机 SN、现场维修热点、机型及新主板更换证据，离线生成绑定到单台设备和单次维修事件的恢复包。插件本身不连接空调、不自动运行恢复包，也不绕过云端绑定；一旦预留或可能发送写入即禁止同事件重试。公开仓库只包含合成测试身份，不包含客户设备记录。",
+    "developerName": "Ailixiya",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "为新的美的空调替换主板生成一次性 SN 恢复包。",
+      "检查主板 SN 恢复所需的原机证据、机型和维修热点信息。",
+      "审查恢复日志或 App 截图，判断一次写入的最终结果。"
+    ]
+  }
+}
