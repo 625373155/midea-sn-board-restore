@@ -1,0 +1,53 @@
+name: offline-safety-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Public privacy gate
+        run: py -3 scripts\public_release_check.py
+
+      - name: Protocol regression vectors
+        run: py -3 skills\midea-sn-board-restore\scripts\protocol_reference.py --self-test
+
+      - name: Python unit tests
+        run: py -3 -m unittest discover -s tests -v
+
+      - name: Generate and validate one disposable synthetic package
+        shell: pwsh
+        run: |
+          $output = Join-Path $env:RUNNER_TEMP "midea-public-ci"
+          py -3 skills\midea-sn-board-restore\scripts\new_restore_package.py `
+            --sn 1234567890123456789012 `
+            --ssid midea_test_a1b2c3d4e5f6 `
+            --model KFR-26G/WXAA2@ `
+            --sn-source original-label `
+            --sn-source-reference "synthetic CI label fixture" `
+            --new-board-evidence "synthetic CI replacement-board fixture" `
+            --ownership-confirmed `
+            --trusted-source-confirmed `
+            --new-physical-board-confirmed `
+            --output $output
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $package = Get-ChildItem -LiteralPath $output -Directory | Select-Object -First 1
+          if (-not $package) { throw "Synthetic package was not generated" }
+          py -3 skills\midea-sn-board-restore\scripts\validate_package.py $package.FullName --require-archive
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
