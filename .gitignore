@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local secrets and environment
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Private evidence, attachments, logs and ledgers
+private/
+evidence/
+local-output/
+.codex-remote-attachments/
+*.log
+*.jsonl
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+
+# Generated device-bound restore packages and markers
+**/TARGET.json
+**/.midea-sn-*.building-*/
+midea-sn-*-*-*/
+*.zip
+*.zip.sha256
+WRITE-ATTEMPTED-DO-NOT-RERUN*
+READ-ONLY-ALREADY-CORRECT-DO-NOT-WRITE*
+READ-MISMATCH-DO-NOT-WRITE*
+READ-INVALID-DO-NOT-WRITE*
